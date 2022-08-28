@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  messagesapi:
+    image: ${DOCKER_REGISTRY-}messagesapi
+    build:
+      context: .
+      dockerfile: MessagesAPI/Dockerfile
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "1234"
+        ACCEPT_EULA: "Y"
