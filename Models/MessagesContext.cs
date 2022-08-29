@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
 
-public class MessagesContext : DbContext
+public class ApplicationContext : Microsoft.EntityFrameworkCore.DbContext
 {
     public DbSet<Message> Messages { get; set; }
+    public DbSet<User> Users { get; set; }
 
     public string DbPath { get; }
 
-    public MessagesContext(DbContextOptions<MessagesContext> options)
+    public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options)
     {
     }
@@ -16,6 +17,7 @@ public class MessagesContext : DbContext
     // special "local" folder for your platform.
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(@"Server=db;Database=master;User=sa;Password=1234;");
+        optionsBuilder.UseInMemoryDatabase("name=MessagesDB");
     }
+
 }

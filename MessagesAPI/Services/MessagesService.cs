@@ -1,15 +1,19 @@
-﻿namespace MessagesAPI.Services
+﻿using MessagesAPI.Repository;
+using Models;
+
+namespace MessagesAPI.Services
 {
-    public class MessagesService
+    public class MessagesService : IMessagesService
     {
-        //public MessagesService(MessagesRepository repository)
-        //{
-        //    _repository = repository;
-        //}
+        private IMessagesRepository _repository;
 
-        public void GetMessages()
+        public MessagesService(IMessagesRepository repository)
         {
-
+            _repository = repository;
         }
+
+        public async Task<List<Message>> GetMessages() => await _repository.GetMessages();
+
+        public async Task<Message> InsertMessage(Message message) => await _repository.CreateMessage(message);
     }
 }
